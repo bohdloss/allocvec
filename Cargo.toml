@@ -1,0 +1,15 @@
+[package]
+name = "allocvec"
+version = "0.1.0"
+edition = "2021"
+repository = "https://github.com/bohdloss/allocvec"
+keywords = ["no_std", "vec", "alloc"]
+categories = ["embedded", "no-std", "algorithms", "data-structures"]
+description = "A vector type that preserves the index of every inserted element"
+license = "MIT"
+readme = "README.md"
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--generate-link-to-definition"]
+
+[dependencies]
