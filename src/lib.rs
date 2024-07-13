@@ -259,6 +259,13 @@ impl<T> AllocVec<T> {
     }
 
     /// # Returns
+    /// * Ture if there are no reserved nor populated elements
+    #[inline]
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
+    /// # Returns
     /// * The length of the underlying `Vec`
     #[inline]
     pub fn vec_len(&self) -> usize {
@@ -306,6 +313,24 @@ impl<T> AllocVec<T> {
         self.inner.iter_mut()
             .filter(|x| if let Populated(_) = x { true } else { false })
             .map(|x| if let Populated(x) = x { x } else { unreachable!() })
+    }
+}
+
+impl<T: Eq> AllocVec<T> {
+    /// Iterates through the vector searching for a slot that's populated with
+    /// an item that is equal to the provided `value`.
+    ///
+    /// Requires `T` to implement [`Eq`]
+    #[inline]
+    pub fn contains(&self, value: &T) -> bool {
+        for item in self.inner.iter() {
+            if let Populated(value_) = item {
+                if value_ == value {
+                    return true;
+                }
+            }
+        }
+        false
     }
 }
 
