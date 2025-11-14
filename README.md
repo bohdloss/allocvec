@@ -11,12 +11,12 @@ for fast allocation and de-allocation.
 use allocvec::AllocVec;
 
 let mut vec = AllocVec::new();
-let idx1 = vec.allocate(4);
-let idx2 = vec.allocate(8);
-let idx3 = vec.allocate(15);
+let idx1 = vec.alloc(4);
+let idx2 = vec.alloc(8);
+let idx3 = vec.alloc(15);
 
-vec.deallocate(idx1);
-vec.deallocate(idx3);
+vec.dealloc(idx1);
+vec.dealloc(idx3);
 
 assert_eq!(Some(8), vec.get(idx2));
 ```
@@ -27,5 +27,5 @@ Though I haven't benchmarked the efficiency of the implementation,
 **allocation**, **deallocation** and **indexing** are **O(1)**
 operations, while calculating the length of the vector is **O(n)**.
 
-Iterators need to filter unallocated and empty slots in the vector, so that
+Iterators need to filter unallocated slots in the vector, so that
 will most likely be bad for branch prediction.
