@@ -1,5 +1,7 @@
 ## AllocVec
 
+<a href="https://crates.io/crates/allocvec" rel="Crates IO AllocVec">![Crates IO AllocVec](https://img.shields.io/crates/v/allocvec?style=for-the-badge)</a>
+
 A vector where each element pushed is guaranteed to keep
 its index until it is removed.
 
