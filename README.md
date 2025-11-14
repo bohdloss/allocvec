@@ -6,8 +6,6 @@ its index until it is removed.
 Internally, a normal `Vec` is used along with a linked list
 for fast allocation and de-allocation.
 
-Supports reserving space and filling it with an element later.
-
 ## Example
 ```rust
 use allocvec::AllocVec;
