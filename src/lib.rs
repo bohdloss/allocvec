@@ -12,7 +12,7 @@ use core::ops::{Index, IndexMut};
 ///
 /// The index obtained through allocation is guaranteed to remain the same
 /// and won't be reused until deallocated
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct AllocVec<T> {
     first: usize,
     inner: Vec<AllocState<T>>
@@ -267,6 +267,15 @@ impl<T> AllocVec<T> {
             .filter(|x| if let AllocState::Allocated(_) = x { true } else { false })
             .map(|x| if let AllocState::Allocated(x) = x { x } else { unreachable!() })
     }
+
+    /// Clears the allocvec, removing all values and resetting the internal linked list.
+    ///
+    /// Allocations will begin at index `0` again after this.
+    #[inline]
+    pub fn clear(&mut self) {
+        self.first = 0;
+        self.inner.clear();
+    }
 }
 
 impl<T: Eq> AllocVec<T> {
@@ -322,7 +331,7 @@ impl<T> From<Vec<T>> for AllocVec<T> {
     }
 }
 
-#[derive(Clone)]
+#[derive(Debug, Clone, Copy)]
 enum AllocState<T> {
     Unallocated(usize),
     Allocated(T)
